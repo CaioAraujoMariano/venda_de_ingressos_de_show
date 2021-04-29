@@ -7,19 +7,19 @@ const funcoes = {
     LembreteCriado: (lembrete) => {
         baseConsulta[lembrete.contador] = lembrete;
     },
-    ObservacaoCriada: (observacao) => {
+    clienteCriado: (cliente) => {
         const clientes =
-            baseConsulta[observacao.lembreteId]["clientes"] || [];
-        clientes.push(observacao);
-        baseConsulta[observacao.lembreteId]["clientes"] =
+            baseConsulta[cliente.lembreteId]["clientes"] || [];
+        clientes.push(cliente);
+        baseConsulta[cliente.lembreteId]["clientes"] =
             clientes;
     },
-    ObservacaoAtualizada: (observacao) => {
+    clienteAtualizado: (cliente) => {
         const clientes =
-            baseConsulta[observacao.lembreteId]["clientes"];
+            baseConsulta[cliente.lembreteId]["clientes"];
         const indice = clientes.findIndex((o) => o.id ===
-            observacao.id);
-        clientes[indice] = observacao;
+        cliente.id);
+        clientes[indice] = cliente;
     },
 };
 

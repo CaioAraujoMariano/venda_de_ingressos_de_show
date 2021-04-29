@@ -9,19 +9,19 @@ const {
 } = require('uuid');
 
 const funcoes = {
-    ObservacaoClassificada: (observacao) => {
+    clienteClassificado: (cliente) => {
         const clientes =
-            IngressoDoClienteId[observacao.lembreteId];
+            IngressoDoClienteId[cliente.lembreteId];
         const obsParaAtualizar = clientes.find(o => o.id ===
-            observacao.id)
-        obsParaAtualizar.status = observacao.status;
+            cliente.id)
+        obsParaAtualizar.status = cliente.status;
         axios.post('http://192.168.16.1:10000/eventos', {
-            tipo: "ObservacaoAtualizada",
+            tipo: "clienteAtualizado",
             dados: {
-                id: observacao.id,
-                texto: observacao.texto,
-                lembreteId: observacao.lembreteId,
-                status: observacao.status
+                id: cliente.id,
+                texto: cliente.texto,
+                lembreteId: cliente.lembreteId,
+                status: cliente.status
             }
         }).catch((err) => {
             console.log("err", err);
@@ -55,7 +55,7 @@ app.put('/ingressos/:id/clientes', async (req, res) => {
     IngressoDoClienteId[req.params.id] =
         ingressoDoCliente;
     await axios.post('http://127.0.0.1:10000/eventos', {
-        tipo: "ObservacaoCriada",
+        tipo: "clienteCriado",
         dados: {
             id: idObs,
             texto,
