@@ -3,16 +3,16 @@ const app = express();
 app.use(express.json());
 const axios = require('axios');
 
-const observacoesPorLembreteId = {};
+const ingressosPorClienteId = {};
 const {
     v4: uuidv4
 } = require('uuid');
 
 const funcoes = {
     ObservacaoClassificada: (observacao) => {
-        const observacoes =
-            observacoesPorLembreteId[observacao.lembreteId];
-        const obsParaAtualizar = observacoes.find(o => o.id ===
+        const clientes =
+            IngressoDoClienteId[observacao.lembreteId];
+        const obsParaAtualizar = clientes.find(o => o.id ===
             observacao.id)
         obsParaAtualizar.status = observacao.status;
         axios.post('http://192.168.16.1:10000/eventos', {
@@ -38,23 +38,23 @@ app.post("/eventos", (req, res) => {
 });
 
 //:id é um placeholder
-//exemplo: /lembretes/123456/observacoes
-app.put('/lembretes/:id/observacoes', async (req, res) => {
+//exemplo: /ingressos/123456/clientes
+app.put('/ingressos/:id/clientes', async (req, res) => {
     const idObs = uuidv4();
     const {
         texto
     } = req.body;
     //req.params dá acesso à lista de parâmetros da URL
-    const observacoesDoLembrete =
-        observacoesPorLembreteId[req.params.id] || [];
-    observacoesDoLembrete.push({
+    const ingressoDoCliente =
+    IngressoDoClienteId[req.params.id] || [];
+    ingressoDoCliente.push({
         id: idObs,
         texto,
         status: 'aguardando'
     });
-    observacoesPorLembreteId[req.params.id] =
-        observacoesDoLembrete;
-    await axios.post('http://192.168.16.1:10000/eventos', {
+    IngressoDoClienteId[req.params.id] =
+        ingressoDoCliente;
+    await axios.post('http://127.0.0.1:10000/eventos', {
         tipo: "ObservacaoCriada",
         dados: {
             id: idObs,
@@ -65,12 +65,12 @@ app.put('/lembretes/:id/observacoes', async (req, res) => {
     }).catch((err) => {
         console.log("err", err);
     });
-    res.status(201).send(observacoesDoLembrete);
+    res.status(201).send(ingressoDoCliente);
 });
-app.get('/lembretes/:id/observacoes', (req, res) => {
-    res.send(observacoesPorLembreteId[req.params.id] || []);
+app.get('/ingressos/:id/clientes', (req, res) => {
+    res.send(clientes[req.params.id] || []);
 
 });
 app.listen(5000, (() => {
-    console.log('Lembretes. Porta 5000');
+    console.log('Ingressos. Porta 5000');
 }));

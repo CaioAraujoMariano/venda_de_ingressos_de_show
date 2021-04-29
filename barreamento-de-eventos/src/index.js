@@ -7,23 +7,23 @@ app.use(express.json());
 app.post("/eventos", async (req, res) => {
     const evento = req.body;
     eventos.push(evento)
-    //envia o evento para o microsserviço de lembretes
+    //envia o evento para o microsserviço de ingressos
     axios.post("http://127.0.0.1:4000/eventos", evento)
         .catch((err) => {
             console.log("err", err);
         });
     //envia o evento para o microsserviço de observações
-    axios.post("http://192.168.16.1:5000/eventos", evento)
+    axios.post("http://127.0.0.1:5000/eventos", evento)
         .catch((err) => {
             console.log("err", err);
         });
     //envia o evento para o microsserviço de consulta
-    axios.post("http://192.168.16.1:6000/eventos", evento)
+    axios.post("http://127.0.0.1:6000/eventos", evento)
         .catch((err) => {
             console.log("err", err);
         });
     //envia o evento para o microsserviço de classificação
-    axios.post("http://192.168.16.1:7000/eventos", evento)
+    axios.post("http://127.0.0.1:7000/eventos", evento)
         .catch((err) => {
             console.log("err", err);
         });

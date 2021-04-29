@@ -11,7 +11,7 @@ const funcoes = {
             observacao.texto.includes(palavraChave) ?
             "importante" :
             "comum";
-        axios.post('http://192.168.16.1:10000/eventos', {
+        axios.post('http://127.0.0.1:10000/eventos', {
             tipo: "ObservacaoClassificada",
             dados: observacao,
         }).catch((err) => {

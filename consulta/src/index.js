@@ -8,22 +8,22 @@ const funcoes = {
         baseConsulta[lembrete.contador] = lembrete;
     },
     ObservacaoCriada: (observacao) => {
-        const observacoes =
-            baseConsulta[observacao.lembreteId]["observacoes"] || [];
-        observacoes.push(observacao);
-        baseConsulta[observacao.lembreteId]["observacoes"] =
-            observacoes;
+        const clientes =
+            baseConsulta[observacao.lembreteId]["clientes"] || [];
+        clientes.push(observacao);
+        baseConsulta[observacao.lembreteId]["clientes"] =
+            clientes;
     },
     ObservacaoAtualizada: (observacao) => {
-        const observacoes =
-            baseConsulta[observacao.lembreteId]["observacoes"];
-        const indice = observacoes.findIndex((o) => o.id ===
+        const clientes =
+            baseConsulta[observacao.lembreteId]["clientes"];
+        const indice = clientes.findIndex((o) => o.id ===
             observacao.id);
-        observacoes[indice] = observacao;
+        clientes[indice] = observacao;
     },
 };
 
-app.get("/lembretes", (req, res) => {
+app.get("/ingressos", (req, res) => {
     res.status(200).send(baseConsulta);
 });
 app.post("/eventos", (req, res) => {
@@ -35,7 +35,7 @@ app.post("/eventos", (req, res) => {
 });
 app.listen(6000, async () => {
     console.log("Consultas. Porta 6000");
-    const resp = await axios.get("http://192.168.16.1:10000/eventos")
+    const resp = await axios.get("http://127.0.0.1:10000/eventos")
         .catch((err) => {
             console.log("err", err);
         });
