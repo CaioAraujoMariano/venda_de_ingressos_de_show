@@ -72,5 +72,5 @@ app.get('/ingressos/:id/clientes', (req, res) => {
 
 });
 app.listen(5000, (() => {
-    console.log('Ingressos. Porta 5000');
+    console.log('Clientes. Porta 5000');
 }));
