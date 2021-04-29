@@ -9,14 +9,14 @@ const funcoes = {
     },
     clienteCriado: (cliente) => {
         const clientes =
-            baseConsulta[cliente.lembreteId]["clientes"] || [];
+            baseConsulta[cliente.ingressoId]["clientes"] || [];
         clientes.push(cliente);
-        baseConsulta[cliente.lembreteId]["clientes"] =
+        baseConsulta[cliente.ingressoId]["clientes"] =
             clientes;
     },
     clienteAtualizado: (cliente) => {
         const clientes =
-            baseConsulta[cliente.lembreteId]["clientes"];
+            baseConsulta[cliente.ingressoId]["clientes"];
         const indice = clientes.findIndex((o) => o.id ===
         cliente.id);
         clientes[indice] = cliente;

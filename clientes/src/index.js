@@ -11,7 +11,7 @@ const {
 const funcoes = {
     clienteClassificado: (cliente) => {
         const clientes =
-            IngressoDoClienteId[cliente.lembreteId];
+            IngressoDoClienteId[cliente.ingressoId];
         const obsParaAtualizar = clientes.find(o => o.id ===
             cliente.id)
         obsParaAtualizar.status = cliente.status;
@@ -20,7 +20,9 @@ const funcoes = {
             dados: {
                 id: cliente.id,
                 texto: cliente.texto,
-                lembreteId: cliente.lembreteId,
+                endereco: cliente.endereco,
+                idade: cliente.idade,
+                ingressoId: cliente.ingressoId,
                 status: cliente.status
             }
         }).catch((err) => {
@@ -59,7 +61,7 @@ app.put('/ingressos/:id/clientes', async (req, res) => {
         dados: {
             id: idObs,
             texto,
-            lembreteId: req.params.id,
+            ingressoId: req.params.id,
             status: 'aguardando'
         }
     }).catch((err) => {
